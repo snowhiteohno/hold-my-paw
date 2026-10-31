@@ -471,7 +471,7 @@ export class GameEngine {
                 ? "Steer against the gust to stay inside the circle. Hold E (or Help) until Boba settles the wind."
                 : e.friend === "puff"
                   ? "Hold E (or Help) until the meter fills. Release it, then fly UP and RIGHT through the high arch before it closes."
-                  : "Hold E (or Help) until the meter fills. Release it, then fly RIGHT through the petals before they close. Do not hold Space — it slows you down.",
+                  : "Hold E (or Help) until the meter fills. Release it, then fly RIGHT through the petals before they close. Do not hold Space; it slows you down.",
             e.window > 0
               ? "If the opening closes, return to the circle and try again."
               : "Once the trellis opens, fly right through it. It will stay open.",
@@ -756,7 +756,7 @@ export class GameEngine {
       this.boatTime = -1.5;
       this.hug = 1;
       this.say(
-        "The umbrella! Catch the paper boat — fly down and hold paws together.",
+        "The umbrella! Catch the paper boat. Fly down and hold paws together.",
         8,
       );
     }
@@ -778,7 +778,7 @@ export class GameEngine {
         this.hug = 1;
         this.star = { x: 3320, y: 350, vx: 0, vy: 0 };
         this.clearInput();
-        this.say("Another little boat. Everyone is safe — try again.", 5);
+        this.say("Another little boat. Everyone is safe. Try again.", 5);
       }
     }
     if (this.index !== 2 && dist(this.star, this.level.goal) < 100) {

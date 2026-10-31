@@ -82,7 +82,7 @@ const assert = require("node:assert/strict");
         if (s.paused) {
           await end();
           const step = page.getByRole("button", {
-            name: "Got it — let’s try!",
+            name: "Got it. Let’s try!",
           });
           if (await step.count()) await step.click();
           else

@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/readme/cover.svg" alt="Hold My Paw — four little friends, one way home. A cozy rescue game by Mallika Suri." width="1000" />
+  <img src="docs/readme/cover.svg" alt="Hold My Paw: four little friends, one way home. A cozy rescue game by Mallika Suri." width="1000" />
 </p>
 
 <p align="center"><b>You’re a tiny star with a very big job.</b><br/>Find four stranded friends, hold their paws, and bring everyone home.</p>
@@ -119,7 +119,7 @@ Open **[localhost:4175](http://localhost:4175)** and take a little paw.
 <details>
 <summary><b>⛵ Help! How do I catch the paper boat?</b></summary>
 
-1. Fly the **star into the dotted oval above the boat**—not the water beneath it.
+1. Fly the **star into the dotted oval above the boat**, not the water beneath it.
 2. Stay close and hold **Space / Hold paws** for about a second.
 3. Everyone boards together. If the timer ends, another boat appears.
 

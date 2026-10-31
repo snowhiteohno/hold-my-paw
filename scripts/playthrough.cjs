@@ -64,7 +64,7 @@ const assert = require("node:assert/strict");
       });
     const tutorials = new Set();
     async function dismissStep() {
-      const button = page.getByRole("button", { name: "Got it — let’s try!" });
+      const button = page.getByRole("button", { name: "Got it. Let’s try!" });
       if (!(await button.count())) return false;
       const title = await page.getByRole("dialog").getAttribute("aria-label");
       assert(!tutorials.has(title), "Tutorial repeated: " + title);

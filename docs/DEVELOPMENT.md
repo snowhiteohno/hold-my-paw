@@ -51,9 +51,9 @@ Boba has more physical weight, and Puff has less. Swapping their positions also 
 
 ## Three chapters
 
-1. **The clover shallows** — find Mochi and Pippin; learn to fly, collect fireflies, and use checkpoints.
-2. **Teacup town** — bring Boba and Puff into the family; navigate more wind and narrower routes.
-3. **The last rain** — carry all four friends through the final storm, followed by the story's ending.
+1. **The clover shallows**: find Mochi and Pippin; learn to fly, collect fireflies, and use checkpoints.
+2. **Teacup town**: bring Boba and Puff into the family; navigate more wind and narrower routes.
+3. **The last rain**: carry all four friends through the final storm, followed by the story's ending.
 
 One star rewards completion. Two reward collecting at least 65% of fireflies. Three require every firefly and no more than two checkpoint recoveries. Completed chapters, best ratings, firefly totals, and best times are stored locally in the browser. There is no overall time limit. Pippin’s petals, Puff’s updraft and the paper boat have short local timers with unlimited retries; friends are never lost.
 

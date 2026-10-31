@@ -832,7 +832,7 @@ function App() {
             The game and every timer are paused while you read.
           </p>
           <button className="primary full" onClick={resume}>
-            Got it — let’s try! <Icon name="arrow" />
+            Got it. Let’s try! <Icon name="arrow" />
           </button>
         </Modal>
       )}
