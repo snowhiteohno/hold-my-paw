@@ -153,23 +153,53 @@ function Icon({ name, size = 20 }: { name: string; size?: number }) {
     </svg>
   );
 }
-function Portrait({ id, size = 72 }: { id: FriendId; size?: number }) {
+const FRIEND_REACTIONS: Record<FriendId, string> = {
+  mochi: "Oh! A little ear scratch?",
+  pippin: "One more hop!",
+  boba: "Mmm. This is nice.",
+  puff: "Look! I’m practicing!",
+};
+function Portrait({ id, size = 72, interactive = false, reduced = false, pulse = 0 }: {
+  id: FriendId; size?: number; interactive?: boolean; reduced?: boolean; pulse?: number;
+}) {
   const ref = useRef<HTMLCanvasElement>(null);
+  const [reaction, setReaction] = useState(0);
+  const [speaking, setSpeaking] = useState(false);
   useEffect(() => {
     const c = ref.current!.getContext("2d")!;
-    c.setTransform(2, 0, 0, 2, 0, 0);
-    c.clearRect(0, 0, size, size);
-    drawFriend(c, id, size / 2, size * 0.53, size / 90, 1);
-  }, [id, size]);
-  return (
-    <canvas
-      ref={ref}
-      width={size * 2}
-      height={size * 2}
-      style={{ width: size, height: size }}
-      aria-hidden="true"
-    />
-  );
+    let frame = 0;
+    const started = performance.now();
+    const active = reaction > 0 || pulse > 0;
+    const render = (now: number) => {
+      const progress = active && !reduced ? Math.min((now - started) / 1400, 1) : 1;
+      const strength = Math.sin(progress * Math.PI);
+      const hop = id === "pippin" ? -Math.abs(Math.sin(progress * Math.PI * 2)) * size * .13 : 0;
+      const tilt = id === "mochi" ? Math.sin(progress * Math.PI * 2) * .18 : 0;
+      c.setTransform(2, 0, 0, 2, 0, 0);
+      c.clearRect(0, 0, size, size);
+      drawFriend(c, id, size / 2, size * .53 + hop, size / 100,
+        active && !reduced ? progress * 5 : 1, tilt,
+        id === "boba" && progress > .2 && progress < .65 ? "sleep" : "happy", strength);
+      if (progress < 1) frame = requestAnimationFrame(render);
+    };
+    render(started);
+    return () => cancelAnimationFrame(frame);
+  }, [id, size, reaction, reduced, pulse]);
+  useEffect(() => {
+    if (!speaking) return;
+    const timer = window.setTimeout(() => setSpeaking(false), 2400);
+    return () => clearTimeout(timer);
+  }, [speaking, reaction]);
+  const picture = <canvas ref={ref} width={size * 2} height={size * 2}
+    style={{ width: size, height: size }} aria-hidden="true" />;
+  if (!interactive) return picture;
+  return <span className="reactive-portrait">
+    <button className="friend-pet" aria-label={`Say hello to ${FRIENDS[id].name}`}
+      onClick={() => { setReaction(n => n + 1); setSpeaking(true); }}>
+      {picture}
+    </button>
+    <span className="friend-reaction" role="status">{speaking ? FRIEND_REACTIONS[id] : ""}</span>
+  </span>;
 }
 function Illustration({
   reduced,
@@ -360,6 +390,7 @@ function App() {
     "intro" | "pause" | "friend" | "result" | "friends" | "help" | "step" | null
   >(null);
   const [stepGuide, setStepGuide] = useState<StepGuide | null>(null);
+  const [petPulse, setPetPulse] = useState({ id: "mochi" as FriendId, count: 0 });
   const [newFriend, setNewFriend] = useState<FriendId>("mochi");
   const [hud, setHud] = useState<HUD>(EMPTY_HUD);
   const [result, setResult] = useState<Result | null>(null);
@@ -546,6 +577,9 @@ function App() {
               onClick={() => setOverlay("help")}
             >
               <Icon name="help" size={16} /> First time? Read the play guide
+            </button>
+            <button className="text-button first-guide" onClick={() => setOverlay("friends")}>
+              <Icon name="paw" size={16} /> Say hello to your friends
             </button>
             <div className="play-note">
               <Icon name="mouse" size={14} /> Mouse or keyboard <span>·</span> 3
@@ -751,7 +785,7 @@ function App() {
                     <button
                       aria-label={`Let ${FRIENDS[id].name} lead`}
                       disabled={!found || !!overlay || hud.phase !== "journey"}
-                      onClick={() => engine.current?.setLeader(id)}
+                      onClick={() => { engine.current?.setLeader(id); setPetPulse(p => ({ id, count: p.count + 1 })); }}
                       key={id}
                       className={`party-member ${found ? "found" : ""} ${hud.party[0] === id ? "lead" : ""}`}
                       title={
@@ -760,7 +794,7 @@ function App() {
                           : `${FRIENDS[id].name} is waiting for you`
                       }
                     >
-                      <Portrait id={id} size={46} />
+                      <Portrait id={id} size={46} reduced={reduced} pulse={petPulse.id === id ? petPulse.count : 0} />
                       <span>
                         {found ? FRIENDS[id].name : "?"}
                         {found && <i>✓</i>}
@@ -841,7 +875,7 @@ function App() {
             </p>
             <div className="ending-friends">
               {(["mochi", "pippin", "boba", "puff"] as FriendId[]).map((id) => (
-                <Portrait key={id} id={id} size={60} />
+                <Portrait key={id} id={id} size={60} interactive reduced={reduced} />
               ))}
             </div>
             <div className="ending-stats">
@@ -936,7 +970,7 @@ function App() {
         <Modal label={`You found ${FRIENDS[newFriend].name}`} onClose={resume}>
           <div className="friend-celebration">
             <span>✧</span>
-            <Portrait id={newFriend} size={150} />
+            <Portrait id={newFriend} size={150} interactive reduced={reduced} />
             <span>✧</span>
           </div>
           <span className="eyebrow">A NEW PAW TO HOLD</span>
@@ -1043,10 +1077,11 @@ function App() {
             <br />
             with little paws.
           </h2>
+          <p className="quiet-note">Tap a friend to say hello.</p>
           <div className="friends-grid">
             {(["mochi", "pippin", "boba", "puff"] as FriendId[]).map((id) => (
               <article key={id}>
-                <Portrait id={id} size={104} />
+                <Portrait id={id} size={104} interactive reduced={reduced} />
                 <h3>
                   {FRIENDS[id].name}
                   <small>{FRIENDS[id].kind}</small>

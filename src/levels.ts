@@ -17,7 +17,7 @@ export const FRIENDS: Record<
     description: "Small paws. Very big feelings.",
     power:
       "A stretchy chain gives everyone more room. Put Mochi first for an extra-long swing.",
-    line: "I wasn’t scared. I was just… waiting for you.",
+    line: "You came back for me. I saved you a paw.",
   },
   pippin: {
     name: "Pippin",
@@ -26,7 +26,7 @@ export const FRIENDS: Record<
     description: "Jump first. Think eventually.",
     power:
       "Your little group flies faster. Put Pippin first for an extra burst of speed.",
-    line: "I bet we can jump over the WHOLE ocean.",
+    line: "You found me! Let’s hop out of here together.",
   },
   boba: {
     name: "Boba",
@@ -35,7 +35,7 @@ export const FRIENDS: Record<
     description: "A very dependable potato.",
     power:
       "A steady friend makes strong winds gentler. Put Boba first to really anchor the group.",
-    line: "Is there a snack where we’re going?",
+    line: "Oh, good. A friend. We can take our time now.",
   },
   puff: {
     name: "Puff",
@@ -44,7 +44,7 @@ export const FRIENDS: Record<
     description: "Tiny wings. Enormous ambition.",
     power:
       "Little wings lift the chain. Put Puff first to keep everybody extra floaty.",
-    line: "I can’t fly yet. But I can help.",
+    line: "You caught me! My tiny wings are here to help.",
   },
 };
 export type Circle = { x: number; y: number; r: number };

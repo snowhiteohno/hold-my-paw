@@ -135,6 +135,7 @@ export function drawFriend(
   t = 0,
   angle = 0,
   expression: "happy" | "worried" | "sleep" = "happy",
+  reaction = 0,
 ) {
   c.save();
   c.translate(x, y);
@@ -189,10 +190,11 @@ export function drawFriend(
     path(c, "M-25 21 Q0 28 25 20 L24 28 Q0 36 -23 28 Z", "#da9878", ink);
     path(c, "M-16 28 L-26 39 L-13 42 L-8 29 Z", "#da9878", ink);
   } else if (id === "boba") {
-    ellipse(c, -22, -22, 9, 10, "#b9977a", ink);
-    ellipse(c, 21, -22, 9, 10, "#b9977a", ink);
-    ellipse(c, -22, -22, 4, 5, "#d7ad91");
-    ellipse(c, 21, -22, 4, 5, "#d7ad91");
+    const earWiggle = Math.sin(t * 12) * reaction * 3;
+    ellipse(c, -22, -22 + earWiggle, 9, 10, "#b9977a", ink);
+    ellipse(c, 21, -22 - earWiggle, 9, 10, "#b9977a", ink);
+    ellipse(c, -22, -22 + earWiggle, 4, 5, "#d7ad91");
+    ellipse(c, 21, -22 - earWiggle, 4, 5, "#d7ad91");
     roundRect(c, -32, -23, 64, 53, 23, "#bb9e7c", ink);
     ellipse(c, 0, 10, 23, 16, "#d2b593");
     ellipse(c, -8, 9, 3, 2, "#725d4c");
@@ -259,7 +261,7 @@ export function drawFriend(
   ellipse(
     c,
     -28,
-    id === "puff" ? 16 + Math.sin(t * 7) * 5 : 16,
+    id === "puff" ? 16 + Math.sin(t * 7) * (5 + reaction * 12) : 16,
     6,
     8,
     id === "pippin"
@@ -274,7 +276,7 @@ export function drawFriend(
   ellipse(
     c,
     28,
-    id === "puff" ? 16 - Math.sin(t * 7) * 5 : 16,
+    id === "puff" ? 16 - Math.sin(t * 7) * (5 + reaction * 12) : 16,
     6,
     8,
     id === "pippin"
