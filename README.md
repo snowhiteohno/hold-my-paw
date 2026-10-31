@@ -5,7 +5,7 @@
 <p align="center"><b>You’re a tiny star with a very big job.</b><br/>Find four stranded friends, hold their paws, and bring everyone home.</p>
 
 <p align="center">
-  <a href="#start-playing"><img src="docs/readme/play.svg" width="30%" alt="Start playing" /></a>
+  <a href="https://hold-my-paw-mallika.scalerailabs-4179.chatgpt.site"><img src="docs/readme/play.svg" width="30%" alt="Start playing" /></a>
   <a href="#pocket-guide"><img src="docs/readme/guide.svg" width="30%" alt="Open the pocket guide" /></a>
   <a href="#the-workshop"><img src="docs/readme/workshop.svg" width="30%" alt="Peek backstage" /></a>
 </p>
@@ -82,6 +82,13 @@ You don’t need to memorize anything. **An instruction popup appears when you r
 
 ## Start playing
 
+### [Play Hold My Paw →](https://hold-my-paw-mallika.scalerailabs-4179.chatgpt.site)
+
+**Public link · no sign-in · desktop and touch controls**
+
+<details>
+<summary>Prefer to run it locally?</summary>
+
 **Runs in your browser. No account, backend, or API key needed.**
 
 With **Node.js 22+** and **pnpm** installed:
@@ -96,6 +103,8 @@ pnpm dev
 Open **[localhost:4175](http://localhost:4175)** and take a little paw.
 
 *The repository is currently private: cloning requires access. The localhost link works after starting the game on your computer.*
+
+</details>
 
 ## Pocket guide
 
