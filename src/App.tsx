@@ -497,7 +497,7 @@ function App() {
             </p>
             <button
               className="primary play-button"
-              onClick={() => start(Math.min(save.unlocked, 2))}
+              onClick={() => start(save.unlocked === 3 ? 0 : save.unlocked)}
             >
               {save.unlocked === 0
                 ? "Let’s find our friends"
