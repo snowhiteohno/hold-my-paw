@@ -25,6 +25,8 @@ const SAVE_KEY = "hold-my-paw-v1";
 function PostcardButton({ save, picnic = false }: { save: Save; picnic?: boolean }) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  const [preview, setPreview] = useState<{ url: string; name: string } | null>(null);
+  useEffect(() => () => { if (preview) URL.revokeObjectURL(preview.url); }, [preview]);
   async function download() {
     setBusy(true);
     setMessage("");
@@ -37,7 +39,7 @@ function PostcardButton({ save, picnic = false }: { save: Save; picnic?: boolean
       document.body.appendChild(link);
       link.click();
       link.remove();
-      window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+      setPreview({ url, name: link.download });
       setMessage("Your postcard is ready. Check your downloads.");
     } catch {
       setMessage("The postcard couldn’t be saved. Please try again.");
@@ -51,6 +53,16 @@ function PostcardButton({ save, picnic = false }: { save: Save; picnic?: boolean
         {busy ? "Making a little memory…" : picnic ? "Save our picnic postcard" : "Save our adventure postcard"}
       </button>
       <span role="status" className="postcard-status">{message}</span>
+      {preview && <Modal label="Your adventure postcard" onClose={() => setPreview(null)} wide>
+        <h2>Your little keepsake.</h2>
+        <p>Your PNG is ready to save and share.</p>
+        <img className="postcard-preview" src={preview.url}
+          alt={picnic ? "Your secret picnic postcard with all four friends and your scores" : "Your adventure postcard with all four friends and your scores"} />
+        <div className="postcard-preview-actions">
+          <a className="feedback-link" href={preview.url} download={preview.name}>Download PNG again</a>
+          <button className="feedback-link" onClick={() => setPreview(null)}>Back to the game</button>
+        </div>
+      </Modal>}
     </div>
   );
 }

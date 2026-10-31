@@ -2009,3 +2009,16 @@ h1 em {
 .friend-pet:focus-visible { outline: 2px solid #617858; outline-offset: 3px; }
 .friend-pet:hover { background: #edf0dc80; }
 .friend-reaction:not(:empty) { position: absolute; z-index: 5; bottom: 100%; left: 50%; transform: translateX(-50%); width: 136px; padding: 9px 11px; border: 1px solid #bdc8aa; border-radius: 14px; background: #fff9e9; color: #53634c; font: 600 12px/1.4 "Nunito", sans-serif; text-align: center; box-shadow: 0 3px 0 #59664e14; pointer-events: none; }
+
+/* Menus grow with unlocked rewards and keep all controls in document flow. */
+.home, .ending { height: auto; min-height: 100dvh; }
+.home .hero-copy { padding-bottom: 40px; }
+.home .home-footer { position: relative; inset: auto; margin: 0 5.2%; padding: 24px 0; }
+.home .chapter-picker { position: relative; inset: auto; }
+.ending .ending-copy { padding-bottom: 48px; }
+.postcard-preview { display: block; width: 100%; height: auto; border-radius: 12px; margin: 20px 0; }
+.postcard-preview-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+@media(max-width: 750px) {
+  .home { min-height: 100dvh; padding-bottom: 0; }
+  .home .chapter-picker { width: 100%; margin-top: 24px; }
+}

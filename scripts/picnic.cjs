@@ -31,6 +31,7 @@ const fs = require('node:fs');
       const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Save our picnic postcard' }).click()]);
       assert.equal(download.suggestedFilename(), 'hold-my-paw-secret-picnic.png');
       await download.saveAs(`artifacts/picnic-postcard-${width}.png`);
+      await page.getByRole('dialog', { name: 'Your adventure postcard' }).getByRole('button', { name: 'Back to the game' }).click();
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
       await page.getByRole('button', { name: 'Back to the meadow' }).click();
       await page.getByRole('button', { name: 'One more adventure?' }).click();
