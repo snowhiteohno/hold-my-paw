@@ -10,6 +10,12 @@
   <a href="#the-workshop"><img src="docs/readme/workshop.svg" width="30%" alt="Peek backstage" /></a>
 </p>
 
+## Watch the trailer
+
+[![Watch the Hold My Paw trailer: four little friends, one way home.](docs/readme/trailer.png)](https://youtu.be/SkGdLHfYQn8)
+
+**[Watch on YouTube →](https://youtu.be/SkGdLHfYQn8)** · 1 minute 46 seconds of gameplay, original music, and a little story about taking care of each other. Includes the ending.
+
 ## Choose a little friend
 
 *Tap a portrait to jump to their card. Open it to learn their trick.*
