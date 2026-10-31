@@ -280,6 +280,11 @@ export type Save = {
   best: Record<number, { stars: number; lights: number; time: number }>;
 };
 export const EMPTY_SAVE: Save = { unlocked: 0, best: {} };
+export function picnicUnlocked(save: Save): boolean {
+  return save.unlocked === LEVELS.length && LEVELS.every((level, i) =>
+    (save.best[i]?.lights ?? 0) >= level.lights.length,
+  );
+}
 export function parseSave(raw: string | null): Save {
   try {
     const p = JSON.parse(raw ?? "null");

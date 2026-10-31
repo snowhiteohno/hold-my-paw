@@ -6,7 +6,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { FRIENDS, LEVELS, parseSave, type FriendId, type Save } from "./levels";
+import { FRIENDS, LEVELS, parseSave, picnicUnlocked, type FriendId, type Save } from "./levels";
 import {
   drawHero,
   drawFriend,
@@ -19,20 +19,21 @@ import {
 import { GameEngine, type HUD, type Result } from "./engine";
 import { Soundscape } from "./audio";
 import { feedbackFormUrl } from "./feedback";
+import { Picnic } from "./Picnic";
 import { createPostcard } from "./postcard";
 const SAVE_KEY = "hold-my-paw-v1";
-function PostcardButton({ save }: { save: Save }) {
+function PostcardButton({ save, picnic = false }: { save: Save; picnic?: boolean }) {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   async function download() {
     setBusy(true);
     setMessage("");
     try {
-      const blob = await createPostcard(save);
+      const blob = await createPostcard(save, picnic);
       const url = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = url;
-      link.download = "hold-my-paw-a-little-memory.png";
+      link.download = picnic ? "hold-my-paw-secret-picnic.png" : "hold-my-paw-a-little-memory.png";
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -47,7 +48,7 @@ function PostcardButton({ save }: { save: Save }) {
   return (
     <div className="postcard-action">
       <button className="feedback-link" disabled={busy} onClick={() => void download()}>
-        {busy ? "Making a little memory…" : "Save our adventure postcard"}
+        {busy ? "Making a little memory…" : picnic ? "Save our picnic postcard" : "Save our adventure postcard"}
       </button>
       <span role="status" className="postcard-status">{message}</span>
     </div>
@@ -383,7 +384,7 @@ const formatTime = (n: number) =>
     .toString()
     .padStart(2, "0")}`;
 function App() {
-  const [screen, setScreen] = useState<"home" | "game" | "ending">("home");
+  const [screen, setScreen] = useState<"home" | "game" | "ending" | "picnic">("home");
   const [level, setLevel] = useState(0);
   const [attempt, setAttempt] = useState(0);
   const [overlay, setOverlay] = useState<
@@ -493,6 +494,13 @@ function App() {
       setScreen("ending");
     } else start(level + 1);
   }
+  const picnicEntry = save.unlocked === LEVELS.length && (
+    <div className="picnic-unlock">
+      {picnicUnlocked(save) ? <button className="feedback-link" onClick={() => { setOverlay(null); setScreen("picnic"); }}>
+        Visit the secret picnic
+      </button> : <p>A secret picnic is waiting. Find every firefly in each chapter to join your friends. Your best chapter collections count across replays.</p>}
+    </div>
+  );
   const resume = () => {
     setOverlay(null);
     canvas.current?.focus();
@@ -586,6 +594,7 @@ function App() {
               little chapters <span>·</span> Little surprises
             </div>
             {save.unlocked === 3 && <PostcardButton save={save} />}
+            {picnicEntry}
             <div className="chapter-picker" aria-label="Choose a chapter">
               {LEVELS.map((l, i) => (
                 <button
@@ -893,12 +902,17 @@ function App() {
               Keep this little memory <Icon name="heart" size={18} />
             </button>
             <PostcardButton save={save} />
+            {picnicEntry}
             <small className="ending-credit">
               HOLD MY PAW · CREATED BY MALLIKA SURI
             </small>
             <FeedbackLink />
           </div>
         </main>
+      )}
+      {screen === "picnic" && picnicUnlocked(save) && (
+        <Picnic onClose={home} onSnack={() => getAudio().play("friend")}
+          reward={<PostcardButton save={save} picnic />} />
       )}
       {overlay === "step" && stepGuide && (
         <Modal label={stepGuide.title} onClose={resume}>

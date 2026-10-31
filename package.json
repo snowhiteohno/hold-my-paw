@@ -10,7 +10,8 @@
     "test": "node --experimental-strip-types --test src/game.test.ts",
     "test:browser": "node scripts/playthrough.cjs && node scripts/touch.cjs",
     "test:guide": "node scripts/guide.cjs",
-    "test:postcard": "node scripts/postcard.cjs"
+    "test:postcard": "node scripts/postcard.cjs",
+    "test:picnic": "node scripts/picnic.cjs"
   },
   "dependencies": {
     "@fontsource/dynapuff": "^5.3.0",

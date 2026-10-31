@@ -1,8 +1,9 @@
 import { drawFriend, drawStar, ellipse, roundRect, starPath } from "./art";
+import { drawSnack } from "./picnicArt";
 import { LEVELS, type FriendId, type Save } from "./levels";
 
 /** Render locally so no player data or screenshots leave the browser. */
-export async function createPostcard(save: Save): Promise<Blob> {
+export async function createPostcard(save: Save, picnic = false): Promise<Blob> {
   await Promise.all([
     document.fonts.load('500 64px "DynaPuff"'),
     document.fonts.load('600 24px "Nunito"'),
@@ -42,9 +43,9 @@ export async function createPostcard(save: Save): Promise<Blob> {
     c.fillText(s, x, y);
   };
   text("A LITTLE MEMORY FROM HOLD MY PAW", 100, 112, 22);
-  text("Nobody left behind.", 100, 222, 64, true);
-  text("I brought four little friends home.", 104, 278, 28);
-  text("And when my light faded, they carried me.", 104, 320, 25, false, "#7c826a");
+  text(picnic ? "A picnic worth the journey." : "Nobody left behind.", 100, 222, picnic ? 52 : 64, true);
+  text(picnic ? "Every firefly found. Every little tummy full." : "I brought four little friends home.", 104, 278, 28);
+  text(picnic ? "No more storms today. Just crumbs and each other." : "And when my light faded, they carried me.", 104, 320, 25, false, "#7c826a");
   c.save();
   c.translate(1365, 158); c.rotate(0.13);
   c.setLineDash([8, 7]);
@@ -52,17 +53,26 @@ export async function createPostcard(save: Save): Promise<Blob> {
   c.setLineDash([]);
   drawStar(c, 0, -10, 36, 0);
   c.textAlign = "center";
-  text("SAFELY HOME", 0, 55, 16);
+  text(picnic ? "SECRET PICNIC" : "SAFELY HOME", 0, 55, 16);
   c.restore();
   const friends: FriendId[] = ["mochi", "pippin", "boba", "puff"];
   c.strokeStyle = "#b79d71"; c.lineWidth = 5;
   c.beginPath(); c.moveTo(420, 580);
   c.bezierCurveTo(620, 635, 980, 635, 1180, 580); c.stroke();
+  if (picnic) {
+    roundRect(c, 295, 575, 1010, 125, 22, "#f5dfd1", "#c49f8e");
+    c.save(); c.beginPath(); c.roundRect(295, 575, 1010, 125, 22); c.clip();
+    c.fillStyle = "#d9a49655";
+    for (let x = 295; x < 1305; x += 60) c.fillRect(x, 575, 30, 125);
+    for (let y = 575; y < 700; y += 60) c.fillRect(295, y, 1010, 30);
+    c.restore();
+  }
   friends.forEach((id, i) => {
     const x = 440 + i * 240;
     drawFriend(c, id, x, 535, 2.7, 0);
     c.textAlign = "center";
-    text(id[0].toUpperCase() + id.slice(1), x, 665, 26, true);
+    if (picnic) drawSnack(c, id, x, 650, 1.2);
+    else text(id[0].toUpperCase() + id.slice(1), x, 665, 26, true);
   });
   drawStar(c, 800, 418, 43, 0);
   c.textAlign = "center";

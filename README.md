@@ -200,3 +200,13 @@ The README’s SVG illustrations are bundled in this repository. Portraits and m
 <p align="center"><img src="docs/readme/footer.svg" alt="You do not have to be brave all by yourself. Hold My Paw, created by Mallika Suri." width="1000" /></p>
 
 <p align="center"><a href="#start-playing">Take the first little step ↑</a></p>
+
+
+<details>
+<summary>A secret picnic invitation</summary>
+
+Finish the adventure and collect every firefly in all three chapters. Your best chapter collections count across replays. Then choose **Visit the secret picnic** on the home or ending screen.
+
+Pick a treat from the basket and offer it to the matching friend. There is no timer. Treat all four friends to unlock a special downloadable picnic postcard.
+
+</details>

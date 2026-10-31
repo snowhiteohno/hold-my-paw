@@ -7,6 +7,7 @@ import {
   requiredFriends,
   starsFor,
   parseSave,
+  picnicUnlocked,
   clamp,
 } from "./levels.ts";
 
@@ -179,4 +180,15 @@ test("boat requires gathering friends, and the ending requires three collected h
   assert(!canReachHome(HOME, 2));
   assert(canReachHome(HOME, 3));
   assert(!canReachHome({ x: 0, y: 0 }, 3));
+});
+
+
+test("secret picnic requires a finished adventure and every chapter collection", () => {
+  const best = Object.fromEntries(LEVELS.map((level, i) => [i, { stars: 2, lights: level.lights.length, time: 100 }]));
+  assert.equal(picnicUnlocked({ unlocked: 3, best }), true);
+  assert.equal(picnicUnlocked({ unlocked: 2, best }), false);
+  assert.equal(picnicUnlocked({ unlocked: 3, best: {} }), false);
+  for (let i = 0; i < LEVELS.length; i++) {
+    assert.equal(picnicUnlocked({ unlocked: 3, best: { ...best, [i]: { ...best[i], lights: best[i].lights - 1 } } }), false);
+  }
 });
