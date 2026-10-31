@@ -11,7 +11,8 @@
     "test:browser": "node scripts/playthrough.cjs && node scripts/touch.cjs",
     "test:guide": "node scripts/guide.cjs",
     "test:postcard": "node scripts/postcard.cjs",
-    "test:picnic": "node scripts/picnic.cjs"
+    "test:picnic": "node scripts/picnic.cjs",
+    "test:audio": "node scripts/audio.cjs"
   },
   "dependencies": {
     "@fontsource/dynapuff": "^5.3.0",

@@ -2022,3 +2022,7 @@ h1 em {
   .home { min-height: 100dvh; padding-bottom: 0; }
   .home .chapter-picker { width: 100%; margin-top: 24px; }
 }
+
+.sound-settings { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 16px; margin: 20px auto; }
+.sound-settings label { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+.sound-settings input { width: 110px; accent-color: #657b5c; }

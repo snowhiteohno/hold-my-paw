@@ -96,3 +96,10 @@ Fonts: DynaPuff (display) and Nunito (interface), from the Fontsource library, d
 Use **First time? Read the play guide** on the title screen, or **Play guide** during a chapter. The guide pauses every gameplay timer and explains the story, controls, friend-specific gates, checkpoints, ratings and paper-boat boarding. The ending walkthrough is collapsed under a spoiler label. New checkpoints, friend puzzles, boat boarding and the carry-home scene show a contextual instruction popup on arrival. Each popup appears once per chapter attempt and pauses the simulation until dismissed. Gate prompts also show the current and required leader.
 
 Run `pnpm test:guide` with the server running to verify guide access, timer pause/resume and mobile layouts.
+
+
+### Music
+
+The original procedural score has meadow, town, rain, and homecoming arrangements. The homecoming theme also plays at the secret picnic. Music is opt-in. Sound volume is adjustable in the pause menu, ending, and picnic. Melodies, bass, arpeggios, and sustained chords are synthesized locally with Web Audio; no audio downloads are needed.
+
+Run `pnpm test:audio` against the preview server to check opt-in playback scheduling, mute, volume, and audio graph reuse. The headless host has no working audio output clock, so this scheduling test uses elapsed wall time. For real PCM rendering and level checks, start a Vite dev server on port 4176 and run `node scripts/audio-render.cjs`. It renders each full theme through OfflineAudioContext and writes WAV previews into ignored `artifacts/`.

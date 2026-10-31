@@ -408,6 +408,7 @@ function App() {
   const [hud, setHud] = useState<HUD>(EMPTY_HUD);
   const [result, setResult] = useState<Result | null>(null);
   const [soundOn, setSoundOn] = useState(false);
+  const [volume, setVolume] = useState(0.55);
   const [reduced, setReduced] = useState(
     () => matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
@@ -424,6 +425,12 @@ function App() {
   const getAudio = () => (audio.current ??= new Soundscape());
   const closeOverlay = useCallback(() => setOverlay(null), []);
   const pause = useCallback(() => setOverlay("pause"), []);
+  useEffect(() => {
+    const music = getAudio();
+    music.setMood(screen === "picnic" || screen === "ending" || (screen === "game" && hud.phase === "carry")
+      ? "home" : screen === "game" ? (["meadow", "town", "rain"] as const)[level] : "meadow");
+    music.setVolume(volume);
+  }, [screen, level, hud.phase, volume]);
   useEffect(
     () => () => {
       audio.current?.destroy();
@@ -498,7 +505,8 @@ function App() {
   function toggleSound() {
     const next = !soundOn;
     setSoundOn(next);
-    void getAudio().enable(next);
+    const music = getAudio();
+    void music.enable(next).then(() => setSoundOn(music.enabled));
   }
   function next() {
     if (level === 2) {
@@ -517,6 +525,13 @@ function App() {
     setOverlay(null);
     canvas.current?.focus();
   };
+  const soundSettings = <div className="sound-settings">
+    <button className="feedback-link" onClick={toggleSound}>{soundOn ? "Mute music" : "Enable music"}</button>
+    <label>Sound volume
+      <input type="range" min="0" max="100" step="5" value={Math.round(volume * 100)}
+        onChange={e => setVolume(Number(e.target.value) / 100)} />
+    </label>
+  </div>;
   return (
     <div
       className={`app ${reduced ? "reduced-motion" : ""} ${screen === "game" ? "in-game" : ""}`}
@@ -915,6 +930,7 @@ function App() {
             </button>
             <PostcardButton save={save} />
             {picnicEntry}
+            {soundSettings}
             <small className="ending-credit">
               HOLD MY PAW · CREATED BY MALLIKA SURI
             </small>
@@ -924,6 +940,7 @@ function App() {
       )}
       {screen === "picnic" && picnicUnlocked(save) && (
         <Picnic onClose={home} onSnack={() => getAudio().play("friend")}
+          soundControls={soundSettings}
           reward={<PostcardButton save={save} picnic />} />
       )}
       {overlay === "step" && stepGuide && (
@@ -1089,6 +1106,7 @@ function App() {
               onChange={(e) => setReduced(e.target.checked)}
             />
           </label>
+          {soundSettings}
           <small className="quiet-note">
             Finished chapters are saved. Restarting resets this chapter.
           </small>

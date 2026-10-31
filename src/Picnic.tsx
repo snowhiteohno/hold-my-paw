@@ -17,7 +17,7 @@ function Picture({ id, snack = false, fed = false }: { id: FriendId; snack?: boo
   }, [id, snack, fed]);
   return <canvas ref={ref} width={240} height={240} aria-hidden="true" />;
 }
-export function Picnic({ onClose, reward, onSnack }: { onClose: () => void; reward: ReactNode; onSnack: () => void }) {
+export function Picnic({ onClose, reward, onSnack, soundControls }: { onClose: () => void; reward: ReactNode; onSnack: () => void; soundControls: ReactNode }) {
   const [selected, setSelected] = useState<FriendId | null>(null);
   const [fed, setFed] = useState<FriendId[]>([]);
   const [message, setMessage] = useState("Choose a snack, then tap the friend who asked for it.");
@@ -65,5 +65,6 @@ export function Picnic({ onClose, reward, onSnack }: { onClose: () => void; rewa
       <span aria-hidden="true">♡</span><h2>Some days deserve a postcard.</h2>
       <p>A special keepsake for finding every light and sharing every treat.</p>{reward}
     </section>}
+    {soundControls}
   </main>;
 }
