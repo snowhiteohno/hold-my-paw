@@ -46,14 +46,70 @@ export async function createPostcard(save: Save, picnic = false): Promise<Blob> 
   text(picnic ? "A picnic worth the journey." : "Nobody left behind.", 100, 222, picnic ? 52 : 64, true);
   text(picnic ? "Every firefly found. Every little tummy full." : "I brought four little friends home.", 104, 278, 28);
   text(picnic ? "No more storms today. Just crumbs and each other." : "And when my light faded, they carried me.", 104, 320, 25, false, "#7c826a");
+  // A separate transparent layer gives the stamp real punched-out perforations.
+  const stamp = document.createElement("canvas");
+  stamp.width = 196;
+  stamp.height = 242;
+  const sc = stamp.getContext("2d")!;
+  sc.fillStyle = "#fffdf3";
+  sc.fillRect(4, 4, 188, 234);
+  sc.globalCompositeOperation = "destination-out";
+  for (let x = 14; x < 196; x += 14) {
+    ellipse(sc, x, 4, 4, 4, "#000");
+    ellipse(sc, x, 238, 4, 4, "#000");
+  }
+  for (let y = 14; y < 242; y += 14) {
+    ellipse(sc, 4, y, 4, 4, "#000");
+    ellipse(sc, 192, y, 4, 4, "#000");
+  }
+  sc.globalCompositeOperation = "source-over";
+  sc.fillStyle = picnic ? "#f1d8c7" : "#dfe6c8";
+  sc.fillRect(17, 17, 162, 208);
+  sc.strokeStyle = "#7b8b68";
+  sc.lineWidth = 1;
+  sc.strokeRect(22, 22, 152, 198);
+  sc.textAlign = "center";
+  sc.fillStyle = "#53634c";
+  sc.font = '600 13px "Nunito", sans-serif';
+  sc.fillText("LITTLE PAWS POST", 98, 44);
+  ellipse(sc, 98, 113, 53, 53, "#fff7d9");
+  drawStar(sc, 98, 106, 37, 0, true, false);
+  sc.fillStyle = "#53634c";
+  sc.font = '500 17px "DynaPuff", sans-serif';
+  sc.fillText(picnic ? "Picnic club" : "Home, at last", 98, 175);
+  sc.font = '600 12px "Nunito", sans-serif';
+  sc.fillText("ONE LITTLE ADVENTURE", 98, 199);
   c.save();
-  c.translate(1365, 158); c.rotate(0.13);
-  c.setLineDash([8, 7]);
-  roundRect(c, -82, -74, 164, 148, 12, "#faf4df", "#94a383");
-  c.setLineDash([]);
-  drawStar(c, 0, -10, 36, 0);
+  c.translate(1370, 177);
+  c.rotate(0.07);
+  c.shadowColor = "#66583b26";
+  c.shadowBlur = 8;
+  c.shadowOffsetY = 4;
+  c.drawImage(stamp, -98, -121);
+  c.restore();
+  // A lightly inked cancellation mark crosses the edge, not the stamp artwork.
+  c.save();
+  c.translate(1213, 282);
+  c.rotate(-0.12);
+  c.strokeStyle = "#71806a99";
+  c.fillStyle = "#71806acc";
+  c.lineWidth = 2;
+  for (const r of [49, 43]) {
+    c.beginPath(); c.arc(0, 0, r, 0, Math.PI * 2); c.stroke();
+  }
   c.textAlign = "center";
-  text(picnic ? "SECRET PICNIC" : "SAFELY HOME", 0, 55, 16);
+  c.font = '700 11px "Nunito", sans-serif';
+  c.fillText("PAW MAIL", 0, -17);
+  c.fillText(picnic ? "PICNIC" : "DELIVERED", 0, 6);
+  c.font = '600 9px "Nunito", sans-serif';
+  c.fillText("WITH LOVE", 0, 23);
+  for (let row = 0; row < 3; row++) {
+    const y = -15 + row * 15;
+    c.beginPath(); c.moveTo(53, y);
+    c.bezierCurveTo(75, y - 13, 91, y + 13, 112, y);
+    c.bezierCurveTo(132, y - 13, 150, y + 13, 170, y);
+    c.stroke();
+  }
   c.restore();
   const friends: FriendId[] = ["mochi", "pippin", "boba", "puff"];
   c.strokeStyle = "#b79d71"; c.lineWidth = 5;
