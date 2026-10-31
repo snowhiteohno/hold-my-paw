@@ -18,7 +18,22 @@ import {
 } from "./art";
 import { GameEngine, type HUD, type Result } from "./engine";
 import { Soundscape } from "./audio";
+import { feedbackFormUrl } from "./feedback";
 const SAVE_KEY = "hold-my-paw-v1";
+function FeedbackLink() {
+  if (!feedbackFormUrl) return null;
+  return (
+    <a
+      className="feedback-link"
+      href={feedbackFormUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Share a little feedback (opens a form in a new tab)"
+    >
+      <span aria-hidden="true">♡</span> Share a little feedback
+    </a>
+  );
+}
 function Icon({ name, size = 20 }: { name: string; size?: number }) {
   const paths: Record<string, ReactNode> = {
     arrow: (
@@ -544,6 +559,7 @@ function App() {
           </div>
           <footer className="home-footer">
             <span>A GAME ABOUT TAKING CARE OF EACH OTHER</span>
+            <FeedbackLink />
             <button className="text-button" onClick={() => setOverlay("help")}>
               A little help <Icon name="arrow" size={14} />
             </button>
@@ -811,6 +827,7 @@ function App() {
             <small className="ending-credit">
               HOLD MY PAW · CREATED BY MALLIKA SURI
             </small>
+            <FeedbackLink />
           </div>
         </main>
       )}
@@ -980,6 +997,7 @@ function App() {
           <small className="quiet-note">
             Finished chapters are saved. Restarting resets this chapter.
           </small>
+          <FeedbackLink />
         </Modal>
       )}
       {overlay === "friends" && (

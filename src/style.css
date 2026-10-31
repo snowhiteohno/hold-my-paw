@@ -1982,3 +1982,20 @@ h1 em {
   color: #7d8b72;
   margin: 18px 0;
 }
+.feedback-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border: 1px solid #c8d0b4;
+  border-radius: 20px;
+  color: #59664e;
+  background: #faf5e6;
+  font: inherit;
+  font-size: 14px;
+  text-decoration: none;
+}
+.feedback-link:hover { background: #e9eedc; }
+.feedback-link:focus-visible { outline: 3px solid #617858; outline-offset: 3px; }
+.home-footer { flex-wrap: wrap; gap: 12px; }
