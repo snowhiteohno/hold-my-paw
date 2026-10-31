@@ -1,98 +1,191 @@
-# Hold My Paw
+<p align="center">
+  <img src="docs/readme/cover.svg" alt="Hold My Paw — four little friends, one way home. A cozy rescue game by Mallika Suri." width="1000" />
+</p>
 
-A small adventure with a very big heart. Created by **Mallika Suri**.
+<p align="center"><b>You’re a tiny star with a very big job.</b><br/>Find four stranded friends, hold their paws, and bring everyone home.</p>
 
-Guide a little star across a floating storybook world, rescue four unlikely friends, and bring everybody home. A real-time chain simulation gives each friend their own weight; wind, terrain, seed pods, and a rechargeable group hug make the journey a little wobbly.
+<p align="center">
+  <a href="#start-playing"><img src="docs/readme/play.svg" width="30%" alt="Start playing" /></a>
+  <a href="#pocket-guide"><img src="docs/readme/guide.svg" width="30%" alt="Open the pocket guide" /></a>
+  <a href="#the-workshop"><img src="docs/readme/workshop.svg" width="30%" alt="Peek backstage" /></a>
+</p>
 
-## Play locally
+## Choose a little friend
 
-Requires Node.js 22+ and pnpm.
+*Tap a portrait to jump to their card. Open it to learn their trick.*
+
+<p align="center">
+  <a href="#mochi"><img src="docs/readme/mochi.svg" width="23%" alt="Meet Mochi, the stretchy kitten" /></a>
+  <a href="#pippin"><img src="docs/readme/pippin.svg" width="23%" alt="Meet Pippin, the speedy frog" /></a>
+  <a href="#boba"><img src="docs/readme/boba.svg" width="23%" alt="Meet Boba, the steady capybara" /></a>
+  <a href="#puff"><img src="docs/readme/puff.svg" width="23%" alt="Meet Puff, the floaty duckling" /></a>
+</p>
+
+<a id="mochi"></a>
+<details>
+<summary><b>🐾 Mochi’s card · “I was just… waiting for you.”</b></summary>
+
+**Your stretchy little companion.** Mochi gives the chain more room to swing.
+
+At the tangled trellis: choose Mochi’s portrait → move the **star** into the dotted circle → release Space → hold **E / Help**. The knot comes loose and the path stays open.
+
+</details>
+
+<a id="pippin"></a>
+<details>
+<summary><b>🐸 Pippin’s card · “We can jump over the WHOLE ocean.”</b></summary>
+
+**Fast paws, questionable planning.** Pippin makes your group fly faster.
+
+At the flower: let Pippin lead → star inside the circle → hold **E / Help** → release it and fly **right** through the petals. Don’t hug during the dash; it slows you down. Missed it? Try again.
+
+</details>
+
+<a id="boba"></a>
+<details>
+<summary><b>🍃 Boba’s card · “Is there a snack where we’re going?”</b></summary>
+
+**A very dependable potato.** Boba makes strong winds gentler.
+
+At the gust: put Boba first → steer against the wind to keep the star in the circle → hold **E / Help** until the wind settles.
+
+</details>
+
+<a id="puff"></a>
+<details>
+<summary><b>🐥 Puff’s card · “I can’t fly yet. But I can help.”</b></summary>
+
+**Tiny wings. Enormous ambition.** Puff keeps the chain floaty.
+
+At the high arch: let Puff lead → hold **E / Help** in the circle → fly **up and right** through the opening before it closes.
+
+</details>
+
+## Your tiny adventure
+
+<img src="docs/readme/map.svg" alt="Chapter 1: Clover shallows. Chapter 2: Teacup town. Chapter 3: The last rain." width="1000" />
+
+**Real movement. Wobbly physics. Little puzzles.** Your friends have different weights and abilities. Switch who leads, gather the chain in a hug, and help one another through.
+
+<details>
+<summary><b>✦ A note for first-time players &amp; judges</b></summary>
+
+You don’t need to memorize anything. **An instruction popup appears when you reach each new mechanic.** The game and timers pause until you’re ready.
+
+- Golden bells save your place.
+- Fireflies are optional collectibles that improve your rating.
+- A collision returns you safely to a checkpoint; friends stay with you.
+- Timed gates and the boat have unlimited retries.
+- The in-game **Play guide** pauses the adventure whenever you need a reminder.
+
+</details>
+
+## Start playing
+
+**Runs in your browser. No account, backend, or API key needed.**
+
+With **Node.js 22+** and **pnpm** installed:
 
 ```sh
+git clone https://github.com/snowhiteohno/hold-my-paw.git
+cd hold-my-paw
 pnpm install
 pnpm dev
 ```
 
-Open **http://localhost:4175**. The server also accepts connections from other devices on the same network, using your computer's LAN address and port 4175.
+Open **[localhost:4175](http://localhost:4175)** and take a little paw.
 
-For a production build:
+*The repository is currently private: cloning requires access. The localhost link works after starting the game on your computer.*
+
+## Pocket guide
+
+| What you want to do | Your little controls |
+| :--- | :--- |
+| Fly | **WASD / arrows**, or hold and move your mouse/finger |
+| Pick the leader | **Q**, or click a rescued friend’s portrait |
+| Use a friend’s skill | Hold **E / Help** inside their dotted circle |
+| Gather everyone close | Hold **Space / Hold paws**; release to recharge |
+| Take a breath | **Escape / P**, pause button, or Play guide |
+
+<details>
+<summary><b>⛵ Help! How do I catch the paper boat?</b></summary>
+
+1. Fly the **star into the dotted oval above the boat**—not the water beneath it.
+2. Stay close and hold **Space / Hold paws** for about a second.
+3. Everyone boards together. If the timer ends, another boat appears.
+
+On a touchscreen, steer with one finger and hold the action button with another.
+
+</details>
+
+<details>
+<summary><b>🌙 Open only after the storm · ending spoiler</b></summary>
+
+Your little star is tired. The friends you saved catch it.
+
+**Now you guide them as they carry you.** Collect all three pink hearts, then fly to the cottage marked **HOME**. There is no timer here.
+
+*You carried us. Our turn.*
+
+</details>
+
+<details>
+<summary><b>⭐ Ratings, saves &amp; comfort settings</b></summary>
+
+- **One star:** get everyone home.
+- **Two stars:** collect at least 65% of the fireflies.
+- **Three stars:** collect every firefly with at most two wobbles.
+
+Chapter unlocks and best results save in your browser’s localStorage. If storage is blocked, you can still play; progress won’t survive a reload.
+
+Music starts muted. Turn it on with the speaker button. **Gentler motion** is available in the pause menu and guide. Switching away from the browser pauses the game.
+
+</details>
+
+## The workshop
+
+**React · TypeScript · Canvas 2D · Web Audio · CSS · Vite · pnpm**
+
+Original canvas artwork, a custom Verlet friend-chain simulation, procedural sound, and self-hosted fonts. No external game engine.
+
+<details>
+<summary><b>🔧 Open the toolbox · build, test &amp; run</b></summary>
 
 ```sh
-pnpm build
-pnpm preview
+pnpm test            # game rules and progression
+pnpm build           # TypeScript + production bundle
+pnpm preview         # serve the built game on port 4175
 ```
 
-Stop the development server before running preview, because both use port 4175. The game is static: the `dist/` directory can be hosted by any static web server. It needs no API keys, backend, or account.
+Stop the dev server before starting preview; they use the same port.
 
-## Controls
-
-- **Hold and move the mouse** to steer the star, or use **WASD / arrow keys**.
-- On a phone or tablet, **hold and drag a finger** to fly.
-- Fly close to a stranded animal to take their paw.
-- **Hold Space** or press the heart button to shorten the chain. Release to recharge.
-- **Q**, or the small swap button above the friend portraits, rotates the lead friend. You can also select a rescued friend’s portrait.
-- **Hold E**, or the contextual Help button, to use the lead friend’s ability inside a marked circle.
-- **Escape / P**, or the pause button, pauses the adventure.
-- Touch golden bells to set a checkpoint. Seed pods and water send the star safely back to the last bell; friends and collected fireflies are retained.
-- Reach the umbrella with every friend to finish chapters one and two. In the last chapter, catch the drifting paper boat and hold paws above it to board. Then steer the friends as they carry the star, collecting three warm hearts before reaching home.
-
-The pause menu has a gentler-motion setting, initialized from the operating system's preference. Music starts muted and can be enabled from the speaker button. The game pauses when the browser loses focus.
-
-## The friends
-
-| Friend             | Passive benefit                     | When holding the first paw |
-| ------------------ | ----------------------------------- | -------------------------- |
-| Mochi, the kitten  | Longer links for a stretchier chain | An even longer swing       |
-| Pippin, the frog   | Faster flight                       | Extra speed                |
-| Boba, the capybara | Less wind drift                     | Stronger wind resistance   |
-| Puff, the duckling | Lower chain gravity                 | Extra lift                 |
-
-Boba has more physical weight, and Puff has less. Swapping their positions also changes the way the chain swings. A group hug brings the links together and further reduces wind drift, at the cost of slower flight and hug energy.
-
-## Three chapters
-
-1. **The clover shallows** — find Mochi and Pippin; learn to fly, collect fireflies, and use checkpoints.
-2. **Teacup town** — bring Boba and Puff into the family; navigate more wind and narrower routes.
-3. **The last rain** — carry all four friends through the final storm, followed by the story's ending.
-
-One star rewards completion. Two reward collecting at least 65% of fireflies. Three require every firefly and no more than two checkpoint recoveries. Completed chapters, best ratings, firefly totals, and best times are stored locally in the browser. There is no overall time limit. Pippin’s petals, Puff’s updraft and the paper boat have short local timers with unlimited retries; friends are never lost.
-
-## Validation
-
-```sh
-pnpm test
-pnpm build
-```
-
-Browser checks require the game server to be running:
+With the game running:
 
 ```sh
 pnpm exec playwright install chromium
-pnpm test:browser
+pnpm test:browser    # desktop adventure + touch controls
+pnpm test:guide      # guide access, pause/resume and layouts
 ```
 
-Use `GAME_URL=http://127.0.0.1:4176 pnpm test:browser` for a different test server. The desktop test plays all three chapters through real pointer and keyboard input, verifies a checkpoint recovery, all four friend challenges, wrong-leader rejection, timed retries, boat boarding and the playable carry-home ending. The mobile test uses Chromium touch events, including the Help action and steering while holding paws with two fingers. Tests use isolated browser contexts; they do not change your personal save. Screenshots are written to `artifacts/`.
+The browser tests play through real inputs, including all four friend puzzles, boat retries, the ending, and contextual popups with frozen timers. They use isolated saves.
 
-The browser harness reads the scene ref through React's test-page fiber solely to locate the moving canvas character. It does not teleport the star, unlock the playthrough's chapters, change game physics, or add debugging globals to the shipped game.
+More detail: [development guide](docs/DEVELOPMENT.md).
 
-## Implementation
+</details>
 
-- React and TypeScript for menus, dialogs, progress, and accessible controls.
-- A custom Canvas 2D renderer for all characters, landscapes, particles, and animation.
-- A fixed-substep Verlet chain with iterative distance and terrain constraints.
-- Procedural Web Audio music and sound effects.
-- Local fonts and artwork; no external requests are needed to play after the files load.
+<details>
+<summary><b>🎨 Credits tucked inside</b></summary>
 
-The game does not request a microphone, camera, or access to personal files. Gameplay runs entirely in the browser. If browser storage is unavailable, playing still works; progress simply will not survive a reload.
+**Game by Mallika Suri.**
 
-## Credits
+Typography: **DynaPuff** and **Nunito**, self-hosted through Fontsource under the SIL Open Font License. [DynaPuff license](public/fonts/dynapuff-OFL.txt) · [Nunito license](public/fonts/nunito-OFL.txt).
 
-Game: Mallika Suri.
+React, TypeScript, Vite, pnpm and Playwright retain their respective open-source licenses.
 
-Fonts: DynaPuff (display) and Nunito (interface), from the Fontsource library, distributed under the SIL Open Font License. Self-hosted WOFF2 files are bundled through `@fontsource/dynapuff` and `@fontsource/nunito`; licenses are included in those packages and in `public/fonts/`. React, Vite, TypeScript, and Playwright are open-source libraries/tools with their respective licenses in the dependency packages.
+The README’s SVG illustrations are bundled in this repository. Portraits and menu tiles are links; expandable cards use GitHub’s native disclosure controls. This page is a guide to the game, not an embedded playable game.
 
-## First-time player guide
+</details>
 
-Use **First time? Read the play guide** on the title screen, or **Play guide** during a chapter. The guide pauses every gameplay timer and explains the story, controls, friend-specific gates, checkpoints, ratings and paper-boat boarding. The ending walkthrough is collapsed under a spoiler label. New checkpoints, friend puzzles, boat boarding and the carry-home scene show a contextual instruction popup on arrival. Each popup appears once per chapter attempt and pauses the simulation until dismissed. Gate prompts also show the current and required leader.
+<p align="center"><img src="docs/readme/footer.svg" alt="You do not have to be brave all by yourself. Hold My Paw, created by Mallika Suri." width="1000" /></p>
 
-Run `pnpm test:guide` with the server running to verify guide access, timer pause/resume and mobile layouts.
+<p align="center"><a href="#start-playing">Take the first little step ↑</a></p>
