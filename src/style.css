@@ -1999,3 +1999,7 @@ h1 em {
 .feedback-link:hover { background: #e9eedc; }
 .feedback-link:focus-visible { outline: 3px solid #617858; outline-offset: 3px; }
 .home-footer { flex-wrap: wrap; gap: 12px; }
+.postcard-action { margin-top: 14px; }
+.postcard-action button { cursor: pointer; }
+.postcard-action button:disabled { opacity: .65; cursor: wait; }
+.postcard-status { display: block; max-width: 300px; margin-top: 6px; font-size: 12px; color: #59664e; }

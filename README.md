@@ -80,6 +80,8 @@ You don’t need to memorize anything. **An instruction popup appears when you r
 
 </details>
 
+After finishing all three chapters, choose **Save our adventure postcard** on the ending screen or home screen. Download a keepsake with all four friends and your best chapter scores.
+
 ## Start playing
 
 ### [Play Hold My Paw →](https://hold-my-paw.vercel.app)

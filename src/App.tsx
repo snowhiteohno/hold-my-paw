@@ -19,7 +19,40 @@ import {
 import { GameEngine, type HUD, type Result } from "./engine";
 import { Soundscape } from "./audio";
 import { feedbackFormUrl } from "./feedback";
+import { createPostcard } from "./postcard";
 const SAVE_KEY = "hold-my-paw-v1";
+function PostcardButton({ save }: { save: Save }) {
+  const [busy, setBusy] = useState(false);
+  const [message, setMessage] = useState("");
+  async function download() {
+    setBusy(true);
+    setMessage("");
+    try {
+      const blob = await createPostcard(save);
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = "hold-my-paw-a-little-memory.png";
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 60000);
+      setMessage("Your postcard is ready. Check your downloads.");
+    } catch {
+      setMessage("The postcard couldn’t be saved. Please try again.");
+    } finally {
+      setBusy(false);
+    }
+  }
+  return (
+    <div className="postcard-action">
+      <button className="feedback-link" disabled={busy} onClick={() => void download()}>
+        {busy ? "Making a little memory…" : "Save our adventure postcard"}
+      </button>
+      <span role="status" className="postcard-status">{message}</span>
+    </div>
+  );
+}
 function FeedbackLink() {
   if (!feedbackFormUrl) return null;
   return (
@@ -518,6 +551,7 @@ function App() {
               <Icon name="mouse" size={14} /> Mouse or keyboard <span>·</span> 3
               little chapters <span>·</span> Little surprises
             </div>
+            {save.unlocked === 3 && <PostcardButton save={save} />}
             <div className="chapter-picker" aria-label="Choose a chapter">
               {LEVELS.map((l, i) => (
                 <button
@@ -824,6 +858,7 @@ function App() {
             <button className="primary" onClick={home}>
               Keep this little memory <Icon name="heart" size={18} />
             </button>
+            <PostcardButton save={save} />
             <small className="ending-credit">
               HOLD MY PAW · CREATED BY MALLIKA SURI
             </small>
